@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新增轮播</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/css/user.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/font-awesome/css/font-awesome.min.css" media="all" />
+</head>
+ 
+<body class="childrenBody">
+ <blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        <a href="{:U('Link/link_list')}" class="layui-btn"> <i class="layui-icon">&#xe65c;</i> &nbsp;返回</a>
+    </div>
+</blockquote>
+
+<fieldset class="layui-form">
+    <legend> <i class="fa fa-shopping-basket"></i> 新增链接 </legend>
+    <form class="layui-form" action="" lay-filter="example">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width: 200px;">链接名称:</label>
+                <div class="layui-input-block">
+                    <input type="text" id="name" name="name" placeholder="请输入链接名称" lay-verify="required"  lay-verify="name" class="layui-input" style="width: 60%;" />
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width: 200px;">跳转链接:</label>
+                <div class="layui-input-block">
+                    <input type="text" id="url" name="url" placeholder="请输入跳转链接 " lay-verify="required"   class="layui-input" style="width: 60%;" />
+                </div>
+            </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 200px;">链接备注:</label>
+            <div class="layui-input-block">
+                <input type="text" id="description" name="description" placeholder="请输入链接备注" lay-verify="required"  lay-verify="description" class="layui-input" style="width: 60%;" />
+            </div>
+        </div>
+
+           <div class="layui-form-item">
+              <label class="layui-form-label" style="width: 200px;">排序:</label>
+              <div class="layui-input-block">
+                 <input type="text"   id="sort" name="sort"  placeholder="请输入排序（降序）" lay-verify="required"  name="sort"    value="0"   class="layui-input" style="width: 60%;"  />
+              </div>
+          </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width: 200px;"><b style="color: red;">*</b>是否显示</label>
+                <div class="layui-input-block">
+                  <input type="radio" name="is_show" lay-filter="is_show" value="1" title="显示" checked='true'/>
+                  <input type="radio" name="is_show" lay-filter="is_show" value="2" title="隐藏" >
+                </div>
+            </div>
+
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+               <button class="layui-btn layui-btn-normal"  lay-submit=""  lay-filter="tj" lay-filter="addUser" >提交</button>
+            </div>
+          </div>
+    </form>
+</fieldset>
+  
+</body>
+</html>
+
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/kindeditor.js"></script>
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/plugins/code/prettify.js"></script>
+<script>
+KindEditor.ready(function(K) 
+{
+    var editor1 = K.create('textarea[name="notice"]', {
+        cssPath : '__PUBLIC__/kindeditor-4.1.10/plugins/code/prettify.css',
+        uploadJson : '__PUBLIC__/kindeditor-4.1.10/php/upload_json.php',
+        fileManagerJson : '__PUBLIC__/kindeditor-4.1.10/php/file_manager_json.php',
+        allowFileManager : true,
+        allowImageUpload:true,
+        filterMode : false,
+        afterBlur: function () { this.sync(); },
+        afterUpload:function () {
+            this.sync();
+        },
+        afterCreate : function() {
+
+
+        }
+    });
+
+});
+</script>
+<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+<script> 
+//店铺ID
+
+var img = [];
+layui.use(['form','layer','jquery','laypage','upload','laydate'],function(){
+        var form = layui.form,
+                layer = parent.layer === undefined ? layui.layer : parent.layer,
+                laypage = layui.laypage,
+                laydate = layui.laydate,
+                upload  = layui.upload;
+                $ = layui.jquery;
+
+
+    form.on('submit(tj)', function(data){
+
+        // alert(JSON.stringify(data.field), {
+        //     title: '最终的提交信息'
+        // })
+
+        $.ajax({
+            type: "POST",
+            url: "{:U('Link/link_add_do')}",
+            /* dataType:'json',*/
+            data:data.field,
+            success: function(msg)
+            {
+                if(msg=='1')
+                {
+                    layer.msg('新增成功！',{icon: 1,anim:0,time:2000},function(){window.location.reload();});
+                }
+                else
+                {
+                    layer.msg('新增失败！');
+                }
+            }
+        });
+        return false;
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+
+
+});
+</script>

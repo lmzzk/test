@@ -1,0 +1,100 @@
+﻿.calu_fix {
+  height: 65px;
+}
+
+
+.wrap-page a {
+  color: #333333;
+}
+
+#content-side ul li .hot {
+  background-color: #2d8cf0;
+  color: #ffffff;
+}
+
+.cal_ewm {
+  position: absolute;
+  right: 20px;
+  top: 0px;
+  text-align: center;
+}
+
+.cal_ewm>div {
+  margin-bottom: 10px;
+}
+
+.cal_ewm p {
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+}
+
+.cal_ewm>div>img {
+  width: 124px;
+  height: 124px;
+}
+
+.wrap_cal {
+  padding-top: 60px;
+}
+
+.wrap_cal_box>h1 {
+  font-size: 22px;
+  height: 32px;
+  line-height: 32px;
+  padding: 15px 4px;
+  border-bottom: 1px solid #dadada;
+}
+
+.wrap_cal_box>h1>img {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.wrap_cal_box>ul>li>a {
+  display: inline-block;
+  padding: 10px;
+  width: 50px;
+  height: 58px;
+}
+
+.wrap_cal_box>ul>li {
+  padding: 0 30px 0 10px;
+  width: 560px;
+  margin-bottom: 30px;
+}
+
+.wrap_cal_box>ul {
+  padding: 30px 0 10px;
+}
+
+.wrap_cal_box>ul>li>a>img {
+  width: 50px;
+  height: 58px;
+}
+
+.cal_box_r {
+  margin-left: 80px;
+}
+
+.wrap_cal_box>ul>li p{
+  font-size: 14px;
+  color: #999999;
+  line-height: 24px;
+
+}
+
+.wrap_cal_box>ul>li h2 {
+  padding-top: 8px;
+  margin-bottom: 10px;
+}
+
+.wrap_cal_box>ul>li h2 a {
+  color: #333333;
+}
+
+.wrap_cal_box>ul>li h2 a:hover {
+  color: #2d8cf0;
+} 

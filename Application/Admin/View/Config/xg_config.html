@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>修改配置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/css/user.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/font-awesome/css/font-awesome.min.css" media="all" />
+
+    <style>
+        .layui-layer-content{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">基本配置</blockquote>
+
+<fieldset><legend><a name="use"><i class="fa fa-cogs" aria-hidden="true"></i> </a></legend>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">网站名称:</label>
+        <div class="layui-input-block">
+            <input type="text" id="web_name" placeholder="请输入网站名称" value="{$conf.web_name}" class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">联系地址:</label>
+        <div class="layui-input-block">
+            <input type="text" id="web_address" placeholder="请输入联系地址" value="{$conf.web_address}" class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+      <label class="layui-form-label" style="width: 200px;">联系电话:</label>
+      <div class="layui-input-block">
+        <input type="text" id="web_phone" placeholder="请输入联系电话" value="{$conf.web_phone}" class="layui-input" style="width: 60%;" />
+      </div>
+  </div>
+
+   <div class="layui-form-item">
+      <label class="layui-form-label" style="width: 200px;">网站备案公司/备案号:</label>
+      <div class="layui-input-block">
+        <input type="text" id="web_record" placeholder="请输入网站备案公司/备案号" value="{$conf.web_record}" class="layui-input" style="width: 60%;" />
+      </div>
+  </div>
+
+  <div class="layui-form-item">
+      <label class="layui-form-label" style="width: 200px;">小程序二维码:</label>
+      <div class="layui-input-block">
+        <button type="button" class="layui-btn image"   lay-data="{url:'{:U('Config/upload_img')}',accept:'images',data:{classid:'web_qrcode'}}"><i class="layui-icon"></i>上传图片</button>
+
+        <i class="layui-icon" id="q1" style="vertical-align: middle;font-size: 30px;cursor: pointer;">&#xe64a;</i> 
+         <input type="hidden" id="web_qrcode"   value="{$conf.web_qrcode}" />
+      </div>
+  </div>
+
+  <div class="layui-form-item">
+      <label class="layui-form-label" style="width: 200px;">关于我们:</label>
+        <div class="layui-input-block">
+          <textarea name="web_about" id="web_about" placeholder="请输入关于我们" class="layui-textarea" style="width: 60%;height: 500px" >{$conf.web_about}</textarea>
+        </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+       <button class="layui-btn api"  data_id="{$conf.id}"  >立即提交</button>
+    </div>
+  </div>
+</fieldset>
+
+</body>
+</html>
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/kindeditor.js"></script>
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/plugins/code/prettify.js"></script>
+<script>
+KindEditor.ready(function(K) 
+{
+
+    var editor2 = K.create('textarea[name="web_about"]', {
+        cssPath : '__PUBLIC__/kindeditor-4.1.10/plugins/code/prettify.css',
+        uploadJson : '__PUBLIC__/kindeditor-4.1.10/php/upload_json.php',
+        fileManagerJson : '__PUBLIC__/kindeditor-4.1.10/php/file_manager_json.php',
+        allowFileManager : true,
+        allowImageUpload:true,
+        filterMode : false,
+        afterBlur: function () { this.sync(); },
+        afterUpload:function () {
+            this.sync();
+        },
+        afterCreate : function() { }
+    });
+    
+});
+
+</script>
+<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+<script>
+layui.use(['form','layer','jquery','laypage','upload'],function(){
+        var form = layui.form,
+                layer = parent.layer === undefined ? layui.layer : parent.layer,
+                laypage = layui.laypage,
+                upload  = layui.upload;
+                $ = layui.jquery,upload = layui.upload;
+
+                
+                
+        //查看图片
+        $('#q1').click(function()
+        {
+          var qrcode = $('#web_qrcode').val();
+
+          if(qrcode=='')
+          {
+             layer.msg("暂无图片,请上传！");
+          }
+          else
+          {
+              layer.open({
+                  type: 1,
+                  title:'当前图片',
+                  skin: 'layui-layer-rim', //加上边框
+                  area: ['300px', '300px'], //宽高
+                  content: '<img style="width:300px;height:300px; " src="'+qrcode+'" />'
+                });
+          }
+        })
+
+
+  
+      //普通图片上传
+      var uploadInst = upload.render(
+      { 
+        elem: '.image'
+        ,before: function(obj)
+        {  
+            layer.load(); //上传loading
+        }
+        ,done: function(res)
+        {layer.closeAll('loading');
+              if(res.code == 5)
+              {
+                //上传成功
+                layer.msg(res.msg,{icon: 1,anim:0,time:2000});
+                //变更值
+                $('#web_qrcode').val(res.pathname);
+              }
+              else
+              {
+                //上传失败
+                layer.msg(res.msg);
+              }
+          
+        }
+        ,error: function()
+        {
+           //layer.msg('操作失败！');
+        }
+      });
+
+
+ 
+    //修改api参数
+    $(".api").click(function()
+    {
+        var info =new Object();
+
+        info.web_name        = $("#web_name").val();
+        info.web_address     = $("#web_address").val();
+        info.web_phone       = $("#web_phone").val();
+        info.web_record      = $("#web_record").val();
+        info.web_about       = $("#web_about").val();
+        info.web_qrcode      = $("#web_qrcode").val();
+
+        layer.confirm('确定变更配置数据吗？', {btn: ['确定','取消'] }, 
+        function()
+        {
+
+           for (let key in info) {
+
+               if(info[key] == ""){
+                  layer.msg('请把信息填写完整', {icon:5, time: 3000});
+                    return
+                  }
+
+           }
+
+           var load = layer.msg('数据更新中...', {icon:16,shade:0.3,time:0});
+
+           $.ajax({
+                    type: "POST",
+                    url: "{:U('Config/xg_config_do')}",
+                    /* dataType:'json',*/
+                    data:info,
+                    success: function(msg)
+                    {
+                             //关闭加载
+                        layer.close(load);
+                        if(msg=='1')
+                        {
+                          layer.msg('配置成功！',{icon: 1,anim:0,time:2000},function(){window.location.reload();});
+                        }
+                        else
+                        {
+                           layer.msg('配置失败！');
+                        }
+                    }
+                 });
+
+
+ 
+        }, 
+        function(){});
+    });
+
+})
+
+
+
+</script>

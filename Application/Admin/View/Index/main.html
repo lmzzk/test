@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{$title}</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
+	<link rel="stylesheet" href="__PUBLIC__/css/main.css" media="all" />
+   
+</head> 
+
+
+
+<body class="childrenBody">
+
+
+	<div class="col" > 
+	 
+			<blockquote class="layui-elem-quote title">系统基本参数</blockquote>
+			<table class="layui-table">
+				<colgroup>
+					<col width="150">
+					<col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<td>当前版本</td>
+						<td class="version">v1.0.1</td>
+					</tr>
+					<tr>
+						<td>网站域名</td>
+						<td class="homePage">{$_SERVER['HTTP_HOST']}</td>
+					</tr>
+					<tr>
+						<td>服务器环境</td>
+						<td class="server"><php>echo (PHP_OS=='WINNT'? 'windows':'Linux');</php></td>
+					</tr>
+					<tr>
+						<td>PHP版本</td>
+						<td class="dataBase"><php> echo phpversion();</php></td>
+					</tr>
+					<tr>
+						<td>Apache版本</td>
+						<td class="dataBase">{$_SERVER["SERVER_SOFTWARE"]}</td>
+					</tr>
+					<tr>
+						<td>数据库版本</td>
+						<td class="dataBase">{$mysql_version}</td>
+					</tr>
+<!--					<tr>-->
+<!--						<td>当前用户分组</td>-->
+<!--						<td class="userRights">{$group_name}</td>-->
+<!--					</tr>-->
+				</tbody>
+			</table>
+			<table class="layui-table" lay-skin="line">
+				<colgroup>
+					<col>
+					<col width="110">
+				</colgroup>
+				<tbody class="hot_news"></tbody>
+			</table> 
+	 
+	</div>
+
+	<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/main.js"></script>
+</body>
+</html>

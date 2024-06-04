@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新增轮播</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/css/user.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/font-awesome/css/font-awesome.min.css" media="all" />
+</head>
+ 
+<body class="childrenBody">
+ <blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        <a href="{:U('Article/article_list')}" class="layui-btn"> <i class="layui-icon">&#xe65c;</i> &nbsp;返回</a>
+    </div>
+</blockquote>
+
+<fieldset class="layui-form">
+    <legend> <i class="fa fa-shopping-basket"></i> 修改文章 </legend>
+
+    <div class="layui-form-item" style="display: none">
+        <label class="layui-form-label" style="width: 200px;">id:</label>
+        <div class="layui-input-block">
+            <input type="text" id="" name="id" placeholder="请输入文章名称"   value="{$info.id}" class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">文章名称:</label>
+        <div class="layui-input-block">
+            <input type="text" id="title" name="title" placeholder="请输入文章名称" value="{$info.title}"  lay-verify="required" class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">文章描述:</label>
+        <div class="layui-input-block">
+            <input type="text" id="remark" name="remark" value="{$info.remark}" placeholder="请输入描述"  class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">文章封面:</label>
+        <div class="layui-input-block">
+           <div class="layui-upload">
+              <input type="hidden" value="{$info.photo}" name="photo" id="url" />
+              <img style="width:200px;height:100px;"    class="layui-upload-img image" id="img_pc_title_url" value="{$info.photo}" src='{$info.photo} ' lay-data="{url:'{:U('article/upload_tag')}',accept:'file',data:{classid:'pc_title_url'}}" />
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">文章分类:</label>
+        <div class="layui-input-inline">
+            <select name="cate_id" lay-verify="required" lay-search="">
+                <option value="">请选择</option>
+                <volist name="menu_list" id="vo" key="k">
+                    <option value="{$vo.id}" <if condition="$vo['id'] eq $info['cate_id']">selected</if>>{$vo.name}</option>
+                </volist>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">文章内容:</label>
+        <div class="layui-input-block">
+            <textarea name="content" id="content" placeholder="请输入关于我们" lay-verify="required" class="layui-textarea" style="width: 60%;height: 500px" >{$info.content}</textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">seo标题:</label>
+        <div class="layui-input-block">
+            <input type="text" id="seo_title" name="seo_title" value="{$info.seo_title}"  placeholder="请输入seo标题"  class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">seo关键字:</label>
+        <div class="layui-input-block">
+            <input type="text" id="seo_keyword" name="seo_keyword"  value="{$info.seo_keyword}" placeholder="请输入关键字"  class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">seo描述:</label>
+        <div class="layui-input-block">
+            <input type="text" id="seo_desc" name="seo_desc"    value="{$info.seo_desc}"  placeholder="请输入描述"  class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;"><b style="color: red;">*</b>是否显示：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_show" lay-filter="is_show" value="1" title="显示"  <if condition="$info.is_show eq 1">checked='true' </if>/>
+            <input type="radio" name="is_show" lay-filter="is_show" value="2" title="隐藏"  <if condition="$info.is_show eq 2">checked='true' </if>/>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">推荐首页：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_tui" lay-filter="is_tui" value="1" title="是"  <if condition="$info.is_tui eq 1">checked='true' </if>/>
+            <input type="radio" name="is_tui" lay-filter="is_tui" value="0" title="否"  <if condition="$info.is_tui eq 0">checked='true' </if>/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">推荐热门：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_rank" lay-filter="is_rank" value="1" title="是"  <if condition="$info.is_rank eq 1">checked='true' </if>/>
+            <input type="radio" name="is_rank" lay-filter="is_rank" value="0" title="否"  <if condition="$info.is_rank eq 0">checked='true' </if>/>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">发布时间:</label>
+        <div class="layui-input-block">
+            <input type="text"   id="date1"  placeholder="请输入发布时间"  name="addtime" value="{$info.addtime}"  lay-verify="required" class="layui-input" style="width: 60%;"/>
+        </div>
+    </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block"> 
+       <button class="layui-btn layui-btn-normal"  lay-submit="" lay-filter="add_article" >提交</button>
+    </div>
+  </div>
+</fieldset>
+  
+</body>
+</html>
+
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/kindeditor.js"></script>
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/plugins/code/prettify.js"></script>
+<script>
+    KindEditor.ready(function(K)
+    {
+
+        var editor2 = K.create('textarea[name="content"]', {
+            cssPath : '__PUBLIC__/kindeditor-4.1.10/plugins/code/prettify.css',
+            uploadJson : '__PUBLIC__/kindeditor-4.1.10/php/upload_json.php',
+            fileManagerJson : '__PUBLIC__/kindeditor-4.1.10/php/file_manager_json.php',
+            allowFileManager : true,
+            allowImageUpload:true,
+            filterMode : false,
+            afterBlur: function () { this.sync(); },
+            afterUpload:function () {
+                this.sync();
+            },
+            afterCreate : function() { }
+        });
+
+    });
+
+</script>
+<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+<script>
+
+    const img = [];
+    layui.use(['form','layer','jquery','laypage','upload','laydate'],function(){
+        const form = layui.form,
+            layer = parent.layer === undefined ? layui.layer : parent.layer,
+            laypage = layui.laypage,
+            laydate = layui.laydate,
+            upload = layui.upload;
+        $ = layui.jquery;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#date1' //指定元素
+            ,type: 'datetime'
+        });
+
+        //普通图片上传
+      var uploadInst = upload.render(
+      { 
+        elem: '.image'
+        ,before: function(obj)
+        {  
+            layer.load(); //上传loading
+        }
+        ,done: function(res)
+        {
+            layer.closeAll('loading');
+              if(res.code == 5)
+              {
+                //上传成功
+                layer.msg(res.msg,{icon: 1,anim:0,time:2000});
+                var classid = res.classid;
+                
+                 
+                if(res.t==1)
+                {
+                   //变更图片
+                   $('#img_'+classid).attr('src',res.pathimg+'?'+Math.random());
+                   $('#img_'+classid).attr('value',res.pathimg);
+                   $('#url').attr('value',res.pathimg);
+                }
+                else
+                {
+                  //mp4
+                  $('#mp4_'+classid).attr('src',res.pathimg+'?'+Math.random());
+                     
+                }
+ 
+                //变更值
+                $('#url_'+classid).val(res.pathname); 
+                $('#title_type').val(res.t); 
+              }
+              else
+              {
+                //上传失败
+                layer.msg(res.msg);
+              }
+          
+        }
+        ,error: function()
+        {
+           //layer.msg('操作失败！');
+        }
+      });
+
+
+
+    form.on('submit(add_article)', function(data){
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "{:U('Article/article_alter_do')}",
+            /* dataType:'json',*/
+            data:data.field,
+            success: function(msg)
+            {
+                if(msg=='1')
+                {
+                    layer.msg('修改成功！',{icon: 1,anim:0,time:2000},function(){window.location.reload();});
+                }
+                else
+                {
+                    layer.msg('修改失败！');
+                }
+            }
+        });
+        return false;
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+});
+</script>

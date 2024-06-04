@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>系统用户添加</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css" media="all" />
+</head>
+<body class="childrenBody">
+<form class="layui-form" style="width:80%;">
+    <input type="hidden" class="layui-input" name="uid"  value="{$user['uid']}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">登录名</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input userName" name="username" lay-verify="required" value="{$user['username']}" placeholder="请输入登录名">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">登录密码</label>
+        <div class="layui-input-block">
+            <input type="password" class="layui-input userEmail" name="password" lay-verify="required" value="" placeholder="请输入登录密码">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">确认密码</label>
+        <div class="layui-input-block">
+            <input type="password" class="layui-input userEmail" name="sure_password" lay-verify="required" value="" placeholder="请输入确认密码">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限分组</label>
+        <div class="layui-input-block">
+            <select name="role_group" lay-verify="required">
+                <option value="">请选择权限分组</option>
+                <volist name="group_list" id="vo">
+                    <option <if condition="$user['group_id'] eq $vo['id']">selected</if> value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">信用权限</label>
+        <div class="layui-input-block">
+            <select name="is_points" lay-verify="required">
+                <option value="">请选择修改企业信用权限</option>
+                <option <if condition="$user['is_points'] eq 2">selected</if> value="2">不能修改</option>
+                <option <if condition="$user['is_points'] eq 1">selected</if> value="1">可以修改</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" type="button" lay-filter="addUser">立即提交</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+<script>
+    layui.use(['form','layer','jquery'],function(){
+        var form = layui.form,
+                layer = parent.layer === undefined ? layui.layer : parent.layer;
+        var $ = layui.jquery;
+
+        var addUserArray = [],addUser;
+        form.on("submit(addUser)",function(data){
+            //弹出loading
+            var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+            $.post("{:U('Account/editUser')}",data.field,function(s){
+                if(s.status == 200){
+                    top.layer.close(index);
+                    top.layer.msg("操作成功！");
+                    layer.closeAll("iframe");
+                    //刷新父页面
+                    parent.location.reload();
+                }else{
+                    top.layer.msg(s.msg);
+                }
+            },'json'
+            )
+        })
+    })
+
+
+</script>
+</body>
+</html>

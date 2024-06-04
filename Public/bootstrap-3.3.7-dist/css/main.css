@@ -1,0 +1,292 @@
+﻿
+/*************************
+*******Typography******
+**************************/
+
+body {
+  background: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  color:#4e4e4e;
+  line-height: 22px;
+}
+@media (max-width: 767px){
+  #navbar{
+	padding-top:5px !important;		
+  }	
+  .navbar-nav>li div{
+	  display:none !important;
+  }
+}
+
+@media (max-width: 430px){
+#cs{
+    font-size: 30px !important;
+}
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600; 
+  font-family: 'Open Sans', sans-serif;
+  color:#4e4e4e;
+}
+
+h1{
+  font-size: 36px;
+  color:#fff;
+}
+
+h2{
+  font-size: 20px;
+}
+
+h3{
+  font-size: 16px;
+  color: #787878;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+h4{
+  font-size: 16px;
+}
+
+a {
+  color: #c52d2f;
+  -webkit-transition: color 300ms, background-color 300ms;
+  -moz-transition: color 300ms, background-color 300ms;
+  -o-transition:  color 300ms, background-color 300ms;
+  transition:  color 300ms, background-color 300ms;
+}
+
+a:hover, a:focus {
+  color: #d43133;
+}
+
+hr {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #fff;
+}
+.top-bar{
+
+  background: #000;
+  color: #fff;
+  line-height: 52px;
+}
+
+/*************************
+*******Header******
+**************************/
+
+#header .search{
+  display: inline-block;
+}
+
+.navbar>.container .navbar-brand{
+  margin-left: 0;
+}
+
+.top-bar {
+  background: #191919;
+  border-bottom: 1px solid #222;
+  line-height: 30px;
+}
+.top-bar p{color: #FFFFFF; margin: 0; line-height: 30px;}
+.top-number{
+  color: #fff;
+}
+
+.top-number p{
+  margin: 0
+}
+
+.social{
+  text-align: right;
+}
+
+.social-share{
+ display: inline-block;
+ list-style: none;
+ padding: 0;
+ margin: 0;
+}
+
+ul.social-share li {
+  display: inline-block;
+
+}
+
+ul.social-share li a {
+  display: inline-block;
+  color: #fff;
+  background: #404040;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 2px;
+}
+
+ul.social-share li a:hover {
+  background: #c52d2f;
+  color: #fff;
+}
+
+.search i {
+  color: #fff;
+}
+
+input.search-form{
+  background: transparent;
+  border: 0 none;
+  width: 60px;
+  padding: 0 10px;
+  color: #FFF;
+  -webkit-transition: all 400ms;
+  -moz-transition: all 400ms;
+  -ms-transition: all 400ms;
+  -o-transition: all 400ms;
+  transition: all 400ms;
+}
+
+input.search-form::-webkit-input-placeholder{
+  color: transparent;
+}
+
+input.search-form:hover::-webkit-input-placeholder {
+  color: #fff;
+}
+
+input.search-form:hover {
+  width: 180px;
+}
+
+.navbar-brand {
+  padding: 0;
+  margin:0;
+}
+
+.navbar {
+  border-radius: 0;
+  margin-bottom: 0;
+  background: #fff;
+  padding: 15px 0;
+  padding-bottom: 0;
+}
+
+ .navbar-nav{
+  margin-top: 12px;
+ }
+
+.navbar-nav>li{
+  margin-left:35px;
+  padding-bottom: 28px;
+  font-size: 16px;
+  font-weight: bolder;
+ 
+  
+}
+.navbar-nav>li div{
+  
+  display: inline;
+  padding-left: 35px;
+  
+}
+.navbar-inverse .navbar-nav > li > a {
+  padding: 5px 12px;
+  margin: 0;
+  border-radius: 3px;
+  color: #fff;
+  line-height: 24px;
+  display: inline-block;
+}
+.nav .active{
+    background: #fff !important;
+    color: green !important;
+}
+.sem p{
+
+  font-weight: bolder;
+
+}
+
+.news li{
+  width: 33.3% !important;
+  margin-left: 0px;
+  background: #dddddd;
+  text-align: center;
+  cursor: pointer;
+  
+  font-size: 18px;
+  line-height: 50px;
+  height: 50px;
+  color: #6d6d6d;
+  float: left;
+}
+.news .ling{
+
+  background: #2fbd2f;
+  color: #fff;
+}
+.news li:hover{
+  background: #2fbd2f !important;
+  color: #fff !important;
+}
+
+.zixun ul li{
+  margin-top: 0 px;
+  border-bottom:1px #626262 dashed;
+  list-style-type: none;
+  height: 40px; 
+  line-height: 40px;
+  cursor: pointer;
+}
+.zixun ul li:hover{
+
+  background:#e5e5e5;
+  
+}
+.cri li{
+
+    background-color: #fff;
+}
+.cir{
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    z-index: 15;
+    width: 60%;
+    padding-left: 0;
+    margin-left: -30%;
+    text-align: center;
+    list-style: none;
+}
+.footer-top a{
+  color: #fff;
+}
+.footer-top a:hover{
+  color: #fff;
+  text-decoration: none;
+}
+.footer-top h4{
+  color: #fff;
+  /* border-bottom: 2px solid #fff; */
+}
+.footer-top .list-unstyled{
+  margin-top: 14px;
+}
+
+.toolbar{
+	position:fixed;
+	right:0px;
+	bottom:50px;
+	width: 172px;
+	height: 196px;
+	cursor:pointer;
+
+}

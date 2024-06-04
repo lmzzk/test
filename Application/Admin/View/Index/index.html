@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$title}</title>
+    <meta content="webkit" name="renderer"/>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta content="*" http-equiv="Access-Control-Allow-Origin"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <link href="__PUBLIC__/favicon.ico" rel="icon"/>
+    <link href="__PUBLIC__/layui/css/layui.css" media="all" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/font.css" media="all" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/main.css" media="all" rel="stylesheet"/>
+    <link href="__PUBLIC__/font-awesome/css/font-awesome.min.css" media="all" rel="stylesheet"/>
+</head>
+<body class="main_body">
+<div class="layui-layout layui-layout-admin">
+    <!-- 顶部 -->
+    <div class="layui-header header">
+        <div class="layui-main">
+            <a class="logo" href="#">
+                {$title}
+            </a>
+            <!-- 显示/隐藏菜单 -->
+            <a class="iconfont hideMenu icon-menu1" href="javascript:;"></a>
+            <!-- 顶部右侧菜单 -->
+            <ul class="layui-nav top_menu">
+                <li class="layui-nav-item showNotice" id="showNotice" pc>
+                    <!--a href="javascript:;"><i class="iconfont icon-gonggao"></i><cite>系统公告</cite></a-->
+                </li>
+                <li class="layui-nav-item" mobile>
+                    <a class="mobileAddTab" data-url="page/user/changePwd.html" href="javascript:;"><i
+                            class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>
+                </li>
+                <li class="layui-nav-item" mobile>
+                    <a class="signOut" href="{:U('login/logout')}"><i class="iconfont icon-loginout"></i> 退出</a>
+                </li>
+                <li class="layui-nav-item" pc>
+                    <a href="javascript:;">
+                        <img class="layui-circle" height="35" src="__PUBLIC__/images/h.png" width="35">
+                        <cite>{$Think.session.member.username}</cite>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a data-url="{:U('Index/changePwd')}" href="javascript:;"><i class="iconfont icon-shezhi1"
+                                                                                         data-icon="icon-shezhi1"></i><cite>修改密码</cite></a>
+                        </dd>
+                        <dd><a class="signOut" href="{:U('Login/logout')}"><i class="iconfont icon-loginout"></i><cite>退出</cite></a>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 左侧导航 -->
+    <div class="layui-side layui-bg-black">
+        <div class="navBar layui-side-scroll" style="height: 729px;">
+            <ul class="layui-nav layui-nav-tree">
+                <li class="layui-nav-item layui-this">
+                    <a data-url="{:U('index/main')}" href="javascript:;">
+                        <i class="iconfont icon-computer"
+                           data-icon="icon-computer"></i>&nbsp;&nbsp;<cite>后台首页</cite>
+                    </a>
+                </li>
+                <volist id="vo" name="nav_list">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><i class="{$vo.icon}"></i>&nbsp;&nbsp;<cite>{$vo.name}</cite><span
+                                class="layui-nav-more"></span>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <volist id="v" name="vo['nav']">
+                                <dd>
+                                    <a data-url="{:U($v['nav_url'])}" href="javascript:;"><i class="{$v.icon}"></i>&nbsp;&nbsp;<cite>{$v.name}</cite></a>
+                                </dd>
+                            </volist>
+                        </dl>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <!-- 右侧内容 -->
+    <div class="layui-body layui-form">
+        <div class="layui-tab marg0" id="top_tabs_box" lay-filter="bodyTab">
+            <ul class="layui-tab-title top_tab" id="top_tabs">
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+            </ul>
+            <ul class="layui-nav closeBox">
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="iconfont icon-caozuo"></i> 页面操作</a>
+                    <dl class="layui-nav-child">
+                        <dd><a class="refresh refreshThis" href="javascript:;"><i class="layui-icon">&#x1002;</i> 刷新当前</a>
+                        </dd>
+                        <dd><a class="closePageOther" href="javascript:;"><i class="iconfont icon-prohibit"></i> 关闭其他</a>
+                        </dd>
+                        <dd><a class="closePageAll" href="javascript:;"><i class="iconfont icon-guanbi"></i>
+                            关闭全部</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <div class="layui-tab-content clildFrame">
+                <div class="layui-tab-item layui-show">
+                    <iframe src="{:U('index/main')}"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <div class="layui-footer footer">
+        <p>
+            <a href="/" target="_blank" title="去首页">
+                Copyright 2021-2030
+                {$title} ®
+            </a>
+        </p>
+    </div>
+</div>
+<!-- 移动导航 -->
+<div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
+<div class="site-mobile-shade"></div>
+<script>window.root = "__PUBLIC__";</script>
+<script src="__PUBLIC__/layui/layui.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/index.js" type="text/javascript"></script>
+</body>
+</html>

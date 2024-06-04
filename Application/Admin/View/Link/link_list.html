@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/css/user.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/font-awesome/css/font-awesome.min.css" media="all" />
+
+ 
+
+</head>
+<body class="childrenBody">
+ 
+<blockquote class="layui-elem-quote news_search layui-form">
+<div class="layui-row">
+  <div class="layui-col-xs10">
+     <form action="{:U('Link/link_list')}" method="GET" >
+        <div class="layui-row">
+
+          <div class="layui-col-md2">
+              <input type="text" name="search_title" value="{$search_title}" placeholder="链接名称" class="layui-input search-input">
+          </div>
+
+          <div class="layui-col-md2"> 
+              <button  class="layui-btn search_btn" type="submit"><i class="layui-icon layui-anim">&#xe615;</i> 查询</button >
+          </div> 
+        </div>
+      </form>
+  </div>
+  <div class="layui-col-xs2">
+      <a class="layui-btn layui-btn-normal" href="{:U('Link/link_add')}"><i class="layui-icon layui-anim">&#xe608;</i> 新增</a>
+  </div>
+</div>
+
+</blockquote>
+  
+
+<div class="layui-form users_list">
+
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>名称</th>
+            <th>链接</th>
+            <th>顺序</th>
+            <th>是否显示</th>
+            <th>时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="users_content">
+        <volist name="list" id="vo" key="k">
+                <tr>
+                    <td>{$k}</td>
+                    <td>{$vo.name}</td>
+                    <td><a target="_blank" href="{$vo.url}">{$vo.url}</a></td>
+                    <td>{$vo.sort}</td>
+                    <td>
+                      <if     condition="$vo.is_show eq 1"> <span style="color:green;">[显示]</span>
+                      <elseif condition="$vo.is_show eq 2"/><span style="color:gray;">[隐藏]</span>
+                      <else />未知(状态码:{$vo.is_show})
+                      </if>
+                    </td>
+                    <td>{$vo.addtime}</td>
+                    <td>
+                       <if  condition="$vo.is_show eq 2">
+                           <a class="layui-btn layui-btn-normal layui-btn-xs tt" data-id="{$vo.id}" t="1">
+                              <i class="layui-icon layui-anim">&#xe619;</i>显示
+                           </a>
+                       </if>
+                       <if  condition="$vo.is_show eq 1">
+                           <a class="layui-btn layui-btn-normal layui-btn-xs tt" data-id="{$vo.id}" t="2">
+                              <i class="layui-icon layui-anim">&#xe61a;</i>隐藏
+                           </a>
+                       </if>
+
+                        <a class="layui-btn layui-btn-warm layui-btn-xs" href="{:U('Link/link_alter',array('id'=>$vo['id']))}">
+                          <i class="layui-icon layui-anim">&#xe620;</i>修改
+                        </a>
+
+                        <a class="layui-btn layui-btn-danger layui-btn-xs del" data-id="{$vo.id}">
+                          <i class="layui-icon layui-anim">&#xe640;</i> 删除
+                        </a>
+                    </td>
+                </tr>
+            </volist>
+        </volist>
+        </tbody>
+    </table>
+</div>
+<div id="page">
+    {$page}
+</div>
+<style>
+ 
+body .dsada .layui-layer-btn .layui-layer-btn1{
+    background: red !important;
+}
+</style>
+<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.use(['form','layer','jquery','laydate'],function(){
+        var form = layui.form,
+                layer = parent.layer === undefined ? layui.layer : parent.layer,
+                laydate=layui.laydate,
+                $ = layui.jquery;
+                
+                
+    //获取站点
+    form.on('select(cid)', function(data)
+    {
+        $('.gclass').html('<option value="-1" >请选择店铺</option>');
+        
+       var cid = $(data.elem).find("option:selected").val();
+       //console.log($(data.elem).find("option:selected").val());
+       
+       if(cid>0)
+       {
+          var load = layer.msg('查找中...<br/>页面卡住刷新重试', {icon:16,shade:0.3,time:0});
+          //查询特殊参数
+           $.ajax({
+                   type:"POST",
+                   url: "{:U('Banner/select_goods')}",
+                   dataType:"json",
+                   data:'cid='+cid,
+                   success: function(msg)
+                   {
+                     console.log(msg);
+                     //关闭加载
+                     layer.close(load);
+                      if(msg.isok=='1')
+                      {   
+                        //路线
+                        if(msg.data!=null)
+                        {
+                          $('.gclass').html(msg.data); 
+                        }
+                      }
+                      form.render();//每一次动态添加代码后重新渲染一下form
+                   }
+              });
+         
+       } 
+       
+    });           
+
+        //上下架
+        $(".tt").click(function()
+        {
+            var id=$(this).attr('data-id');
+            var t=$(this).attr('t');
+            var dd;
+            if(t==1)
+            {
+               dd = '确定要显示吗？';
+            }
+            else
+            {
+                dd = '确定要隐藏吗？';
+            }
+            layer.confirm(dd, {btn: ['确定','取消'] }, 
+            function()
+            { 
+              if(id!='')
+              {
+                   var load = layer.msg('数据变更中...', {icon:16,shade:0.3,time:0});
+                    $.ajax({
+                       type: "POST",
+                       url: "{:U('Link/link_types')}",
+                       dataType:'json',
+                       data:'id='+id+'&t='+t,
+                       success: function(msg)
+                       {
+                         //关闭加载
+                         layer.close(load);  
+                          if(msg.status=='200')
+                          {  
+                             layer.msg(msg.msg,{icon: 1,anim:0,time:2000},function(){window.location.reload();}); 
+                          }
+                          else
+                          {
+                             layer.msg(msg.msg);
+                          } 
+                       }
+                    });
+              }
+              else
+              {
+                layer.msg('系统错误,参数丢失！');
+              }       
+            }, 
+            function(){});
+        })
+     
+     
+     
+     
+     
+     
+
+
+        //删除
+        $(".del").click(function()
+        {
+            var id=$(this).attr('data-id');
+            layer.confirm('确定要删除吗？', {btn: ['确定','取消'] },
+            function()
+            { 
+              if(id!='')
+              {
+                   var load = layer.msg('数据变更中...', {icon:16,shade:0.3,time:0});
+                    $.ajax({
+                       type: "POST",
+                       url: "{:U('Link/link_del')}",
+                       dataType:'json',
+                       data:'id='+id,
+                       success: function(msg)
+                       {
+                         //关闭加载
+                         layer.close(load);  
+                          if(msg.status=='200')
+                          {  
+                             layer.msg(msg.msg,{icon: 1,anim:0,time:2000},function(){window.location.reload();}); 
+                          }
+                          else
+                          {
+                             layer.msg(msg.msg);
+                          } 
+                       }
+                    });
+              }
+              else
+              {
+                layer.msg('系统错误,参数丢失！');
+              }       
+            }, 
+            function(){});
+        })
+
+   
+
+
+})
+</script>
+</body>
+</html>  

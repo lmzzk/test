@@ -1,0 +1,318 @@
+﻿.header {
+    height:80px;
+}
+
+.header h1 {
+    width: 254px;
+    height: 41px;
+    padding-top: 10px;
+}
+
+.header h1 a {
+    display: inline-block;
+    height: 41px;
+}
+
+.header h1 img {
+    width: 100%;
+    height: 55px;
+}
+
+.city_t {
+    font-size: 14px;
+    position: relative;
+    width: 55px;
+    height: 20px;
+    margin: 38px 0 0 20px;
+}
+
+.city_show {
+    position: absolute;
+    top: 0px;
+    height: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #dae1e4;
+    padding: 0 6px;
+    cursor: pointer;
+}
+
+.city_show img {
+    width: 8px;
+    height: 8px;
+    vertical-align: middle;
+}
+
+.city_t > .city_hot {
+    /* display: none; */
+    position: absolute;
+    top: 32px;
+    width: 390px;
+    padding: 10px 15px;
+    text-align: center;
+    border: 1px solid #f2f2f2;
+    background-color: #fff;
+    z-index: 99999999;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .5);
+}
+
+.city_t > .city_hot li {
+    height: 24px;
+    line-height: 24px;
+}
+
+.city_t > .city_hot a {
+    display: inline-block; /* width: 100%; */
+    color: #000000;
+    padding: 3px 10px;
+}
+
+.city_t > .city_hot a:hover {
+    color: #fff;
+    background-color: #1c75ef;
+}
+
+.city_hot > p {
+    font-size: 12px;
+    border-bottom: 1px solid #dcdcdc;
+    height: 26px;
+    line-height: 26px;
+    color: #808080;
+    text-align: left;
+}
+
+.city_hot > p > span {
+    color: #1c75ef;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 0 10px;
+}
+
+.city_sj {
+    position: absolute;
+    top: -10px;
+    height: 0px;
+    width: 0px; /* border-top: 5px solid transparent; */
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #dadada;
+}
+
+.login {
+    font-size: 24px;
+    height: 80px;
+    line-height: 80px;
+}
+
+.login img {
+    width: 48px;
+    height: 48px;
+    vertical-align: middle;
+    display: block;
+    float: left;
+    margin-top: 18px;
+    margin-right: 12px;
+}
+
+.login .tel-text {
+    width: 303px;
+    float: right;
+}
+
+.login p {
+    margin-top: 20px;
+    display: block;
+    float: left;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.header_er .server_phone{
+    color:#21b5b4;
+    padding-left: 2px;
+}
+
+.header_er .server_img{
+   vertical-align: middle;
+    width: 20px;
+    margin-left: 45px;
+}
+
+.login span {
+    vertical-align: middle;
+}
+
+.login .login_in {
+    height: 24px;
+    padding: 4px 15px;
+    line-height: 24px;
+    border-radius: 5px;
+    display: inline-block;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    font-size: 12px;
+    color: #ffffff;
+    margin-left: 20px;
+    cursor: pointer;
+    background-color: #ff6e57;
+}
+
+.login_in a {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+}
+
+.nav {
+    height: 50px;
+    position: absolute;
+    top:103px;
+    left: 0;
+    right: 0;
+    z-index: 9999999;
+    background-color: RGBA(0, 0, 0, .5);
+    filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#170000, endcolorstr=#170000);
+}
+
+.navbar {
+    position: relative;
+    z-index: 999;
+}
+
+.navbar > ul {
+    position: absolute;
+    right: 0;
+    z-index: 9999999;
+}
+
+.update_2022{
+    padding-top: 20px;
+}
+.fl_img img{
+    width:220px;
+}
+
+.navbar > ul > li > a {
+    width: 106px;
+    height: 50px;
+    line-height: 58px;
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    color: #000;
+}
+
+.navbar > ul > li > a:hover {
+    color: #fff;
+}
+
+.navbar .nav_active {
+    height: 58px;
+    margin-top: -4px;
+    background: url('../images/s_nav.png') no-repeat;
+}
+
+.navbar .active {
+    height: 58px;
+    margin-top: -4px;
+    background: url('../images/s_nav.png') no-repeat;
+    color: #fff;
+}
+
+.subnav {
+    position: relative;
+    padding-top: 10px;
+    display: none;
+    background-color: RGBA(255, 255, 255, .01);
+}
+
+.subnav li {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 4px;
+    background-color: #21b5b4;
+}
+
+.subnav li a {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+.bor-top {
+    border-top: 1px solid #21b5b4;
+}
+
+.triangle {
+    position: relative;
+}
+
+.triangle-up {
+    width: 0;
+    height: 0;
+    display: block;
+    position: absolute;
+    top: -8px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid #21b5b4;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+
+/* S 20201021 添加微信客服及二维码 */
+.header_er{width: 1200px;margin: 0 auto;height: 22px;}
+.header_kefu {
+    float: right;
+    position: relative;
+    margin-right: 20px;
+    cursor: pointer;
+    z-index:9999999999;
+    top: 8px;
+}
+
+.header_kefu span {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}
+.wx-img{
+        width: 26px;
+        float: left;
+}
+.header_kefu:hover .header_kefu_qrcode {
+    display: block;
+}
+.header_kefu .header_kefu_qrcode {
+    display: none;
+    position: absolute;
+    width: 180px;
+    height: 200px;
+    z-index: 100;
+    background-color: #fff;
+    text-align: center;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px #f5f5f6 solid;
+    border-top: 0;
+    box-shadow: 0 0 9px 0 rgba(0, 0, 0, .15);
+}
+
+.header_kefu .header_kefu_qrcode img {
+    display: block;
+    margin: 0 auto;
+}
+/* E 20201021 添加微信客服及二维码  */

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新增类别</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/css/user.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/font-awesome/css/font-awesome.min.css" media="all" />
+</head>
+
+<body class="childrenBody">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        <a href="{:U('Daik/dk_list')}" class="layui-btn"> <i class="layui-icon">&#xe65c;</i> &nbsp;返回</a>
+    </div>
+</blockquote>
+
+<fieldset class="layui-form">
+    <legend> <i class="fa fa-shopping-basket"></i> 新增</legend>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">名称:</label>
+        <div class="layui-input-block">
+            <input type="text" id="name" name="name" placeholder="请输入名称"    lay-verify="required" class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">平台分类:</label>
+        <div class="layui-input-inline">
+            <select name="cate_id" lay-verify="required" lay-search="">
+                <option value="">请选择</option>
+                <volist name="menu_list" id="vo" key="k">
+                    <option value="{$vo.id}" >{$vo.name}</option>
+                </volist>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">图片:</label>
+        <div class="layui-input-block">
+            <div class="layui-upload">
+                <input type="hidden"   name="img" id="url" />
+                <img style="width:200px;height:100px;"    class="layui-upload-img image" id="img_pc_title_url" value="" src='__PUBLIC__/images/add-image.png ' lay-data="{url:'{:U('Banner/upload_tag')}',accept:'file',data:{classid:'pc_title_url'}}" />
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">贷款金额:</label>
+        <div class="layui-input-block">
+            <input type="text"  name="dk_max" placeholder="请输入贷款金额"    class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">贷款利息:</label>
+        <div class="layui-input-block">
+            <input type="text" name="dk_lixi" placeholder="请输入贷款利息"    class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">贷款周期:</label>
+        <div class="layui-input-block">
+            <input type="text" name="dk_month" placeholder="请输入贷款周期"    class="layui-input" style="width: 60%;" />
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">申请条件:</label>
+        <div class="layui-input-block">
+            <input type="text" name="map" placeholder="请输入申请条件(多个用;隔开)"    class="layui-input" style="width: 80%;" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">准备资料:</label>
+        <div class="layui-input-block">
+            <input type="text" name="info" placeholder="请输入准备资料(多个用;隔开）"    class="layui-input" style="width: 80%;" />
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;">排序:</label>
+        <div class="layui-input-block">
+            <input type="text"   id="sort"  placeholder="请输入排序（降序）"  value="0" name="sort"    lay-verify="required"    class="layui-input" style="width: 60%;"  />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 200px;"><b style="color: red;">*</b>是否显示</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_show" lay-filter="is_show" value="1" title="显示"  checked/>
+            <input type="radio" name="is_show" lay-filter="is_show" value="2" title="隐藏" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal"  lay-submit="" lay-filter="addUser" >提交</button>
+        </div>
+    </div>
+</fieldset>
+
+</body>
+</html>
+
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/kindeditor.js"></script>
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script charset="utf-8" src="__PUBLIC__/kindeditor-4.1.10/plugins/code/prettify.js"></script>
+<script>
+    KindEditor.ready(function(K)
+    {
+        var editor1 = K.create('textarea[name="notice"]', {
+            cssPath : '__PUBLIC__/kindeditor-4.1.10/plugins/code/prettify.css',
+            uploadJson : '__PUBLIC__/kindeditor-4.1.10/php/upload_json.php',
+            fileManagerJson : '__PUBLIC__/kindeditor-4.1.10/php/file_manager_json.php',
+            allowFileManager : true,
+            allowImageUpload:true,
+            filterMode : false,
+            afterBlur: function () { this.sync(); },
+            afterUpload:function () {
+                this.sync();
+            },
+            afterCreate : function() {
+
+
+            }
+        });
+
+    });
+</script>
+<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+<script>
+    //店铺ID
+
+    var img = [];
+    layui.use(['form','layer','jquery','laypage','upload','laydate'],function(){
+        var form = layui.form,
+            layer = parent.layer === undefined ? layui.layer : parent.layer,
+            laypage = layui.laypage,
+            laydate = layui.laydate,
+            upload  = layui.upload;
+        $ = layui.jquery;
+
+
+        form.on('submit(addUser)', function(data){
+            data.field.img = $("#img_pc_title_url").attr('value');
+            $.ajax({
+                type: "POST",
+                url: "{:U('Daik/dk_add_do')}",
+                /* dataType:'json',*/
+                data:data.field,
+                success: function(msg)
+                {
+                    if(msg=='1')
+                    {
+                        layer.msg('新增成功！',{icon: 1,anim:0,time:2000},function(){window.location.reload();});
+                    }
+                    else
+                    {
+                        layer.msg('新增失败！');
+                    }
+                }
+            });
+            return false;
+
+
+        });
+
+
+
+
+        //普通图片上传
+        var uploadInst = upload.render(
+            {
+                elem: '.image'
+                ,before: function(obj)
+                {
+                    layer.load(); //上传loading
+                }
+                ,done: function(res)
+                {
+                    layer.closeAll('loading');
+                    if(res.code == 5)
+                    {
+                        //上传成功
+                        layer.msg(res.msg,{icon: 1,anim:0,time:2000});
+                        var classid = res.classid;
+
+
+                        if(res.t==1)
+                        {
+                            //变更图片
+                            $('#img_'+classid).attr('src',res.pathimg+'?'+Math.random());
+                            $('#img_'+classid).attr('value',res.pathimg);
+                        }
+                        else
+                        {
+                            //mp4
+                            $('#mp4_'+classid).attr('src',res.pathimg+'?'+Math.random());
+
+                        }
+
+                        //变更值
+                        $('#url_'+classid).val(res.pathname);
+                        $('#title_type').val(res.t);
+                    }
+                    else
+                    {
+                        //上传失败
+                        layer.msg(res.msg);
+                    }
+
+                }
+                ,error: function()
+                {
+                    //layer.msg('操作失败！');
+                }
+            });
+
+
+
+
+    });
+</script>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>系统用户添加</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="__PUBLIC__/css/style.css" media="all" />
+</head>
+<body class="childrenBody">
+<form class="layui-form width-80-form">
+    <input type="hidden" class="layui-input" name="id"  value="{$group_info['id']}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">分组名称</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input userName" name="name" lay-verify="required" value="{$group_info['name']}" placeholder="请输入分组名称">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">权限选择</label>
+        <div class="layui-input-block">
+            <volist name="nav_list" id="vo">
+                <div class="layui-role-parent">
+                    <input type="checkbox" <if condition="$vo['all_in'] eq true">checked</if>  lay-filter="top-parent" lay-skin="primary" data-role="" title="{$vo.name}">
+                    <div class="layui-unselect layui-form-checkbox <if condition="$vo['all_in'] eq true">layui-form-checked</if>" lay-skin="primary"><span>{$vo.name}</span><i class="layui-icon"></i></div>
+                </div>
+                <div class="layui-role-child">
+                    <volist name="vo['nav']" id="v">
+                        <input type="checkbox" name="child-nav" <if condition="in_array($v['id'],$group_info['role'])">checked</if> lay-filter="child-nav" lay-skin="primary" data-role="{$v.id}" title="{$v.name}">
+                        <div class="layui-unselect layui-form-checkbox <if condition="in_array($v['id'],$group_info['role'])">layui-form-checked</if>" lay-skin="primary"><span>{$v.name}</span><i class="layui-icon"></i></div>
+                    </volist>
+                </div>
+            </volist>
+        </div>
+    </div>
+    <div class="layui-form-item margin-top-60">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" type="button" lay-filter="addRole">立即提交</button>
+        </div>
+    </div>
+</form>
+
+
+<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+<script>
+    layui.use(['form','layer','jquery'],function(){
+        var form = layui.form,
+                layer = parent.layer === undefined ? layui.layer : parent.layer;
+        var $ = layui.jquery;
+
+        var addUserArray = [],addUser;
+        form.on("submit(addRole)",function(data){
+            //弹出loading
+            var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+            $.post("{:U('Account/editRole')}",{id:data.field.id,name:data.field.name,role:getChecked()},function(s){
+                        if(s.status == 200){
+                            top.layer.close(index);
+                            top.layer.msg("操作成功！");
+                            layer.closeAll("iframe");
+                            //刷新父页面
+                            parent.location.reload();
+                        }else{
+                            top.layer.msg(s.msg);
+                        }
+                    },'json'
+            )
+        })
+        //权限分组权限
+        form.on("checkbox(top-parent)",function(data){
+            var child = $(data.elem).parent('div.layui-role-parent').next('div.layui-role-child').children('input[type=checkbox]');
+            child.each(function(index, item){
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+        //获取所有选中状态的权限值
+        function getChecked(){
+            var role=[];
+            var child = $('input[name=child-nav]');
+            child.each(function(index, item){
+                if($(item).is(":checked")){
+                    role.push($(item).attr('data-role'));
+                }
+            });
+            return role;
+        }
+    })
+
+
+</script>
+</body>
+</html>

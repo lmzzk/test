@@ -1,0 +1,432 @@
+let InterValObj; //timer变量，控制时间
+let count = 60; //间隔函数，1秒执行
+let curCount;//当前剩余秒数
+
+
+
+// 顶部banner表单
+    $(".tj").click(function () {
+
+        let data = bd_data();
+
+        if(data.status ==0){
+            layer.msg(data.info);
+            return
+        }
+        data.ac = 'submit';
+        data.code = $("#captcha").val();
+
+        if (data.code == "") {
+            layer.msg("请输入验证码");
+            $('#captcha').focus();
+            return;
+        }
+
+        $.ajax({
+            type: 'post',
+            url: "https://api.chuanronghui.com/ajax.php",
+            data: data,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                console.log(data);
+                if (data.code == 200) {
+                    layer.msg(data.info);
+                    $('#name').val('');
+                    $("#phone").val('');
+                    $("#amount").val('');
+                    $("#captcha").val('');
+
+                    return false;
+
+                } else {
+
+                    layer.msg(data.info);
+                    return false;
+                }
+            }, error: function (e) {
+                console.log(e);
+            }
+        });
+
+    });
+
+    //发送验证码 banner 处
+    $("#get_code").click(function () {
+
+       let  data = bd_data();
+
+        if(data.status ==0){
+            layer.msg(data.info);
+            return
+        }
+
+
+        if (data.username == "") {
+            data.username = '游客';
+        }
+
+        data.ac = 'code';
+        $.ajax({
+            type: 'post',
+            url: "https://api.chuanronghui.com/ajax.php",
+            data: data,
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (data.code == 200) {
+                    code();
+                    layer.msg(result.info);
+                    return false;
+
+                } else {
+
+                    layer.msg(result.info);
+                    return false;
+                }
+            }, error: function (e) {
+                console.log(e);
+            }
+        });
+
+    });
+
+    //banner出表单
+    function bd_data() {
+        let data = [];
+        data.username = $('#name').val();
+        data.phone = $("#phone").val();
+        data.money = $("#amount").val();
+        data.title = "立即申请";
+        data.url = window.location.href;
+        data.status=1;
+
+        if (data.username == "") {
+
+            $('#name').focus();
+            data.status = 0;
+            data.info = "请输入姓名";
+            return data;
+
+
+        }
+
+        if (!(/^1[3456789]\d{9}$/.test($("#phone").val()))) {
+            layer.msg("手机号输入不正确");
+            $("#phone").focus();
+            data.status = 0;
+            data.info = "手机号输入不正确";
+            return data;
+        }
+
+        if (data.mount == "") {
+
+            layer.msg("请输入额度");
+            $('#mount').focus();
+            data.status = 0;
+            data.info = "请输入额度";
+            return data;
+        }
+
+        return data;
+
+    }
+// end
+
+
+// dk_info
+    $("#SendCode").click(function() {
+
+        let data = [];
+        data.username = "游客";
+        data.phone = $("#phone_dk").val();
+
+        if (!(/^1[3456789]\d{9}$/.test($("#phone_dk").val()))) {
+            layer.msg("手机号输入不正确");
+            $("#phone_dk").focus();
+            return;
+        }
+
+        data.ac = 'code';
+
+        $.ajax({
+            type: 'post',
+            url: "https://api.chuanronghui.com/ajax.php",
+            data: data,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                console.log(data);
+                code();
+                if (data.code == 200) {
+                    code();
+                    layer.msg(data.info);
+                    return false;
+
+                } else {
+
+                    layer.msg(data.info);
+                    return false;
+                }
+            }, error: function (e) {
+                console.log(e);
+            }
+        });
+    });
+
+    $("#SendPost").click(function() {
+
+        let data = {};
+        data.username = "游客";
+        data.title = "立即申请";
+        data.phone = $("#phone_qs").val();
+        data.url = window.location.href;
+        if (!(/^1[3456789]\d{9}$/.test($("#phone_qs").val()))) {
+            layer.msg("手机号输入不正确");
+            $("#phone_qs").focus();
+            return;
+        }
+
+        data.code = $("#code").val();
+
+        if (data.code == "") {
+            layer.msg("请输入验证码");
+            $('#code').focus();
+            return;
+        }
+
+        data.ac = 'submit';
+
+        $.ajax({
+            type: 'post',
+            url: "https://api.chuanronghui.com/ajax.php",
+            data: data,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                console.log(data);
+                if (data.code == 200) {
+                    layer.msg(data.info);
+                    $("#phone_dk").val('');
+                    $("#code").val('');
+
+                    return false;
+
+                } else {
+
+                    layer.msg(data.info);
+                    return false;
+                }
+            }, error: function (e) {
+                console.log(e);
+            }
+        });
+
+    });
+// end
+
+
+//dk_web_info
+    //发送验证码  web_info处
+    $("#SendCode_web").click(function () {
+
+        let data   = {};
+        data.phone    = $("#phone").val();
+        data.ac='code';
+
+        if (!(/^1[3456789]\d{9}$/.test($("#phone").val()))) {
+            layer.msg("手机号输入不正确");
+            $("#phone").focus();
+            return ;
+        }
+
+        $.ajax({
+            type: 'post',
+            url:"https://api.chuanronghui.com/ajax.php",
+            data: data,
+            dataType:"json",
+            async: false,
+            success: function (data) {
+                console.log(data);
+                code();
+                if(data.code==200){
+
+                    layer.msg(data.info);
+                    return false;
+
+                }else{
+
+                    layer.msg(data.info);
+                    return false;
+                }
+            },error:function(e){
+                console.log(e);
+            }
+        });
+
+    });
+
+    //提交数据处
+    $("#SendPost_web").click(function () {
+
+        data.code = $("#code").val();
+        data.username = $('#name').val();
+        if (data.username == "") {
+            data.username = '游客';
+        }
+
+        if (data.code == "") {
+            layer.msg("请输入验证码");
+            $('#code').focus();
+            return ;
+        }
+
+        data.phone    = $("#phone").val();
+        data.ac='submit';
+        data.title='立即申请';
+
+        $.ajax({
+            type: 'post',
+            url:"https://api.chuanronghui.com/ajax.php",
+            data: data,
+            dataType:"json",
+            async: false,
+            success: function (data) {
+                console.log(data);
+                if(data.code==200){
+                    layer.msg(data.info);
+                    $('#name').val('');
+                    $("#phone").val('');
+                    $("#code").val('');
+                    return false;
+
+                }else{
+
+                    layer.msg(data.info);
+                    return false;
+                }
+            },error:function(e){
+                console.log(e);
+            }
+        });
+
+    });
+// end
+
+
+//qs
+    $("#SendCode_qs").click(function() {
+
+        let data = {};
+        data.username = "游客"
+        data.phone = $("#phone_qs").val();
+
+        if (!(/^1[3456789]\d{9}$/.test($("#phone_qs").val()))) {
+            layer.msg("手机号输入不正确");
+            $("#phone_qs").focus();
+            return;
+        }
+
+        data.ac = 'code';
+
+        $.ajax({
+            type: 'post',
+            url: "https://api.chuanronghui.com/ajax.php",
+            data: data,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                console.log(data);
+                code();
+                if (data.code == 200) {
+                    code();
+                    layer.msg(data.info);
+                    return false;
+
+                } else {
+
+                    layer.msg(data.info);
+                    return false;
+                }
+            }, error: function (e) {
+                console.log(e);
+            }
+        });
+    });
+
+    $("#SendPost_qs").click(function() {
+
+        let data = {};
+        data.username = "游客";
+        data.title = "立即申请";
+        data.phone = $("#phone_qs").val();
+        data.url = window.location.href;
+        if (!(/^1[3456789]\d{9}$/.test($("#phone_qs").val()))) {
+            layer.msg("手机号输入不正确");
+            $("#phone_qs").focus();
+            return;
+        }
+
+        data.code = $("#code").val();
+
+        if (data.code == "") {
+            layer.msg("请输入验证码");
+            $('#code').focus();
+            return;
+        }
+
+        data.ac = 'submit';
+
+        $.ajax({
+            type: 'post',
+            url: "https://api.chuanronghui.com/ajax.php",
+            data: data,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                console.log(data);
+                if (data.code == 200) {
+                    layer.msg(data.info);
+                    $("#phone_qs").val('');
+                    $("#code").val('');
+
+                    return false;
+
+                } else {
+
+                    layer.msg(data.info);
+                    return false;
+                }
+            }, error: function (e) {
+                console.log(e);
+            }
+        });
+
+    });
+//end
+
+//验证码
+function code() {
+    curCount = count;
+    $(".yzm").attr("disabled", "true");
+    $(".yzm").val("" + curCount + "秒后重发");
+    InterValObj = window.setInterval(open_SetRemainTime, 1000); //启动计时器，1秒执行一次
+
+}
+
+//timer处理函数
+function open_SetRemainTime() {
+    if (curCount == 0) {
+        window.clearInterval(InterValObj);//停止计时器
+        $(".yzm").removeAttr("disabled");//启用按钮
+        $(".yzm").html("重新获取");
+        $(".yzm").val("重新获取");
+    } else {
+        curCount--;
+        console.log(curCount);
+        $(".yzm").html(curCount);
+        $(".yzm").val("" + curCount + "秒后重发");
+    }
+}
+
